@@ -1,7 +1,39 @@
 package letter;
 
-import content.Content;
+import city.Inhabitant;
 
-public class UrgentLetter<C extends Content> extends OptionLetter<C> {
+/**
+ * Defines an UrgentLetter.
+ * 
+ * @author Benjamin Lefebvre
+ * @author Thibault Montois
+ */
+public class UrgentLetter extends OptionLetter {
 
+	/**
+	 * Constructs an UrgentLetter with given sender, receiver and Letter.
+	 * 
+	 * @param sender
+	 *            the UrgentLetter's sender
+	 * @param receiver
+	 *            the UrgentLetter's receiver
+	 * @param letter
+	 *            the UrgentLetter's content
+	 */
+	public UrgentLetter(Inhabitant sender, Inhabitant receiver, Letter<?> letter) {
+		super(sender, receiver, letter);
+		this.cost *= 2;
+	}
+
+	/**
+	 * Called by <code>doAction</code> method.
+	 */
+	@Override
+	protected void reallyDoAction() {
+		this.content.reallyDoAction();
+	}
+
+	public String toString() {
+		return "an urgent letter whose content is " + this.content.toString();
+	}
 }
