@@ -1,5 +1,7 @@
 package city;
 
+import letter.Letter;
+
 /**
  * Defines an Inhabitant.
  * 
@@ -66,5 +68,9 @@ public class Inhabitant {
 		this.bankAccount -= amount;
 		tmp = this.bankAccount < 2 ? " euro" : " euros";
 		System.out.println("whose balance is now " + this.bankAccount + tmp);
+	}
+
+	public void receiveLetter(Letter<?> letter) {
+		letter.doAction();
 	}
 }

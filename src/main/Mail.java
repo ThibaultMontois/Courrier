@@ -41,7 +41,7 @@ public class Mail {
 		int sender;
 		int receiver;
 
-		for (int k = 0; k < days || !city.getPostBox().isEmpty(); k++) {
+		for (int k = 0; k < days || !city.getPostbox().isEmpty(); k++) {
 			System.out.println("****************************************");
 			System.out.println("Day " + (k + 1));
 

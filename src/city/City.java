@@ -52,7 +52,7 @@ public class City {
 		return this.inhabitants;
 	}
 
-	public List<Letter<?>> getPostBox() {
+	public List<Letter<?>> getPostbox() {
 		return this.postbox;
 	}
 
@@ -78,6 +78,6 @@ public class City {
 		List<Letter<?>> bag = new LinkedList<Letter<?>>(this.postbox);
 		this.postbox.clear();
 		for (Letter<?> letter : bag)
-			letter.doAction();
+			letter.getReceiver().receiveLetter(letter);
 	}
 }
