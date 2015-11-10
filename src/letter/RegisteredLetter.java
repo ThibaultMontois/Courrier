@@ -20,8 +20,7 @@ public class RegisteredLetter extends OptionLetter {
 	 * @param letter
 	 *            the RegisteredLetter's content
 	 */
-	public RegisteredLetter(Inhabitant sender, Inhabitant receiver,
-			Letter<?> letter) {
+	public RegisteredLetter(Inhabitant sender, Inhabitant receiver, Letter<?> letter) {
 		super(sender, receiver, letter);
 		this.cost += 15;
 	}

@@ -24,10 +24,13 @@ public class PromissoryNote extends Letter<MoneyContent> {
 	 *            the PromissoryNote's amount
 	 */
 	public PromissoryNote(Inhabitant sender, Inhabitant receiver, int amount) {
-		super(sender, receiver);
-		this.content = new MoneyContent(amount);
+		super(sender, receiver, amount);
 	}
-
+	
+	protected MoneyContent createContent(Object content) {
+		return new MoneyContent((Integer) content);
+	}
+	
 	/**
 	 * This kind of Letter cost is increased by <code>factor</code> percent of
 	 * the Content's amount.

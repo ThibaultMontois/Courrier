@@ -1,6 +1,5 @@
 package letter;
 
-import content.TextContent;
 import city.Inhabitant;
 
 /**
@@ -22,8 +21,7 @@ public class ThanksLetter extends SimpleLetter {
 	 *            the ThanksLetter's text
 	 */
 	public ThanksLetter(Inhabitant sender, Inhabitant receiver, String text) {
-		super(sender, receiver);
-		this.content = new TextContent("thanks for " + text);
+		super(sender, receiver, "thanks for " + text);
 	}
 
 	public String toString() {

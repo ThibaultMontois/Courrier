@@ -1,7 +1,6 @@
 package letter;
 
 import city.Inhabitant;
-import content.TextContent;
 
 /**
  * Defines an AcknowledgmentOfReceipt.
@@ -22,14 +21,11 @@ public class AcknowledgmentOfReceipt extends SimpleLetter {
 	 * @param text
 	 *            the AcknowledgmentOfReceipt's text
 	 */
-	public AcknowledgmentOfReceipt(Inhabitant sender, Inhabitant receiver,
-			String text) {
-		super(sender, receiver);
-		this.content = new TextContent("acknowledgment of receipt for " + text);
+	public AcknowledgmentOfReceipt(Inhabitant sender, Inhabitant receiver, String text) {
+		super(sender, receiver, "acknowledgment of receipt for " + text);
 	}
 
 	public String toString() {
 		return "an aknowledgment of receipt which is " + super.toString();
 	}
-
 }

@@ -1,7 +1,6 @@
 package letter;
 
 import city.Inhabitant;
-import content.Content;
 
 /**
  * Defines an OptionLetter.
@@ -9,9 +8,7 @@ import content.Content;
  * @author Benjamin Lefebvre
  * @author Thibault Montois
  */
-public abstract class OptionLetter extends Letter<Content> {
-
-	protected Letter<?> content;
+public abstract class OptionLetter extends Letter<Letter<?>> {
 
 	/**
 	 * Constructs an OptionLetter with given sender, receiver and Letter.
@@ -24,8 +21,10 @@ public abstract class OptionLetter extends Letter<Content> {
 	 *            the OptionLetter's content
 	 */
 	public OptionLetter(Inhabitant sender, Inhabitant receiver, Letter<?> letter) {
-		super(sender, receiver);
-		this.content = letter;
+		super(sender, receiver, letter);
 	}
 
+	protected Letter<?> createContent(Object content) {
+		return (Letter<?>) content;
+	}
 }

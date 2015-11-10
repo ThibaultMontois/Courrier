@@ -67,5 +67,4 @@ public class Inhabitant {
 		tmp = this.bankAccount < 2 ? " euro" : " euros";
 		System.out.println("whose balance is now " + this.bankAccount + tmp);
 	}
-
 }
