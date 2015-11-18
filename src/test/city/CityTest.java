@@ -1,14 +1,14 @@
 package test.city;
 
 import static org.junit.Assert.*;
-import letter.Letter;
-import letter.SimpleLetter;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import city.City;
 import city.Inhabitant;
+import letter.Letter;
+import letter.SimpleLetter;
 
 /**
  * Defines tests for City class.

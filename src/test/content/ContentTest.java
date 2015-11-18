@@ -8,4 +8,7 @@ package test.content;
  */
 public interface ContentTest {
 
+	public void createContent();
+	
+	public void testToString();
 }

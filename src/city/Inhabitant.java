@@ -35,7 +35,7 @@ public class Inhabitant {
 		return this.city;
 	}
 
-	public double getBankAccount() {
+	public int getBankAccount() {
 		return this.bankAccount;
 	}
 
@@ -52,7 +52,6 @@ public class Inhabitant {
 		this.bankAccount += amount;
 		tmp = this.bankAccount < 2 ? " euro" : " euros";
 		System.out.println("; its balance is now " + this.bankAccount + tmp);
-
 	}
 
 	/**
