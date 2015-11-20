@@ -8,7 +8,7 @@ import city.Inhabitant;
  * @author Benjamin Lefebvre
  * @author Thibault Montois
  */
-public class UrgentLetter extends OptionLetter {
+public class UrgentLetter extends LetterDecorator {
 
 	/**
 	 * Constructs an UrgentLetter with given sender, receiver and Letter.

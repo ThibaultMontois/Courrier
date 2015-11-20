@@ -46,10 +46,10 @@ public class Inhabitant {
 	 *            the amount to add
 	 */
 	public String credit(int amount) {
-		String str;
-		this.bankAccount += amount;
-		str = "   + " + this.name + " account is credited with " + amount;
+		String str = "   + " + this.name + " account is credited with "
+				+ amount;
 		str += amount < 2 ? " euro" : " euros";
+		this.bankAccount += amount;
 		str += "; its balance is now " + this.bankAccount;
 		str += this.bankAccount < 2 ? " euro\n" : " euros\n";
 		return str;
@@ -62,17 +62,16 @@ public class Inhabitant {
 	 *            the amount to remove
 	 */
 	public String debit(int amount) {
-		String str;
-		this.bankAccount -= amount;
-		str = "   - " + amount;
+		String str = "   - " + amount;
 		str += amount < 2 ? " euro" : " euros";
+		this.bankAccount -= amount;
 		str += " are debited from " + this.name
 				+ " account whose balance is now " + this.bankAccount;
 		str += this.bankAccount < 2 ? " euro\n" : " euros\n";
 		return str;
 	}
 
-	public void receiveLetter(Letter<?> letter) {
-		letter.doAction();
+	public String receiveLetter(Letter<?> letter) {
+		return letter.doAction();
 	}
 }

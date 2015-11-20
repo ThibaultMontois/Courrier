@@ -8,7 +8,7 @@ import city.Inhabitant;
  * @author Benjamin Lefebvre
  * @author Thibault Montois
  */
-public abstract class OptionLetter extends Letter<Letter<?>> {
+public abstract class LetterDecorator extends Letter<Letter<?>> {
 
 	/**
 	 * Constructs an OptionLetter with given sender, receiver and Letter.
@@ -20,7 +20,7 @@ public abstract class OptionLetter extends Letter<Letter<?>> {
 	 * @param letter
 	 *            the OptionLetter's content
 	 */
-	public OptionLetter(Inhabitant sender, Inhabitant receiver, Letter<?> letter) {
+	public LetterDecorator(Inhabitant sender, Inhabitant receiver, Letter<?> letter) {
 		super(sender, receiver);
 		this.content = letter;
 	}

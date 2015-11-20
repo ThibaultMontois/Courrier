@@ -8,7 +8,7 @@ import city.Inhabitant;
  * @author Benjamin Lefebvre
  * @author Thibault Montois
  */
-public class RegisteredLetter extends OptionLetter {
+public class RegisteredLetter extends LetterDecorator {
 
 	/**
 	 * Constructs an RegisteredLetter with given sender, receiver and Letter.

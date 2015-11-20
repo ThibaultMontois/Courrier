@@ -6,7 +6,7 @@ package test.letter;
  * @author Benjamin Lefebvre
  * @author Thibault Montois
  */
-public class RegisteredLetterTest extends OptionLetterTest {
+public class RegisteredLetterTest extends LetterDecoratorTest {
 
 	public void createContent() {
 		// TODO Auto-generated method stub

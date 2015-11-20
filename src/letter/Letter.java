@@ -49,7 +49,7 @@ public abstract class Letter<C extends Content> implements Content {
 	 */
 	public String doAction() {
 		String str = "<- " + this.receiver.getName() + " receives "
-				+ this.toString() + " from " + this.sender.getName();
+				+ this.toString() + " from " + this.sender.getName() + "\n";
 		str += this.reallyDoAction();
 		return str;
 	}

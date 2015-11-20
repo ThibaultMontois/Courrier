@@ -63,23 +63,24 @@ public class City {
 	 *            the Letter to add
 	 */
 	public String sendLetter(Letter<?> letter) {
-		String str;
-		this.postbox.add(letter);
-		str = "-> " + letter.getSender().getName() + " mails "
+		String str = "-> " + letter.getSender().getName() + " mails "
 				+ letter.toString() + " to " + letter.getReceiver().getName()
 				+ " for a cost of " + letter.getCost();
 		str += letter.getCost() < 2 ? " euro\n" : " euros\n";
 		str += letter.getSender().debit(letter.getCost());
+		this.postbox.add(letter);
 		return str;
 	}
 
 	/**
 	 * Distributes all the postbox's Letter.
 	 */
-	public void distributeLetters() {
+	public String distributeLetters() {
+		String str = "";
 		List<Letter<?>> bag = new LinkedList<Letter<?>>(this.postbox);
 		this.postbox.clear();
 		for (Letter<?> letter : bag)
-			letter.getReceiver().receiveLetter(letter);
+			str += letter.getReceiver().receiveLetter(letter);
+		return str;
 	}
 }

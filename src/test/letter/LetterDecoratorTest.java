@@ -8,6 +8,6 @@ import letter.Letter;
  * @author Benjamin Lefebvre
  * @author Thibault Montois
  */
-public abstract class OptionLetterTest extends LetterTest<Letter<?>> {
+public abstract class LetterDecoratorTest extends LetterTest<Letter<?>> {
 
 }
