@@ -1,5 +1,6 @@
 package letter;
 
+import main.Mail;
 import city.Inhabitant;
 
 /**
@@ -23,7 +24,7 @@ public class RegisteredLetter extends LetterDecorator {
 	public RegisteredLetter(Inhabitant sender, Inhabitant receiver,
 			Letter<?> letter) {
 		super(sender, receiver, letter);
-		this.cost += 15;
+		this.cost += Mail.ADDCOST;
 	}
 
 	/**
@@ -33,7 +34,7 @@ public class RegisteredLetter extends LetterDecorator {
 	protected String reallyDoAction() {
 		String str = this.content.reallyDoAction();
 		str += this.receiver.getCity().sendLetter(
-				new AcknowledgmentOfReceipt(this.receiver, this.sender, this
+				new AknowledgmentOfReceipt(this.receiver, this.sender, this
 						.toString()));
 		return str;
 	}

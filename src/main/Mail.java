@@ -2,14 +2,13 @@ package main;
 
 import java.util.Random;
 
-import letter.Letter;
-import letter.PromissoryNote;
-import letter.RegisteredLetter;
-import letter.SimpleLetter;
-import letter.UrgentLetter;
-
 import city.City;
 import city.Inhabitant;
+import letter.Letter;
+import letter.SimpleLetter;
+import letter.PromissoryNote;
+import letter.RegisteredLetter;
+import letter.UrgentLetter;
 
 /**
  * Defines the main class Mail.
@@ -19,10 +18,24 @@ import city.Inhabitant;
  */
 public class Mail {
 
-	private Random random = new Random();
+	public static final int BANKACCOUNT = 5000;
+	public static final int COST = 1;
+	public static final int FACTOR = 1;
+	public static final int ADDCOST = 15;
+	public static final int MULTCOST = 2;
+
+	private int maxLetters;
+	private int maxAmount;
+	private Random random;
+
+	private Mail(int maxLetters, int maxAmount) {
+		this.maxLetters = maxLetters;
+		this.maxAmount = maxAmount;
+		this.random = new Random();
+	}
 
 	public static void main(String[] args) {
-		Mail mail = new Mail();
+		Mail mail = new Mail(20, 100);
 		try {
 			mail.run("Lille", 100, 6);
 		} catch (InterruptedException e) {
@@ -30,10 +43,11 @@ public class Mail {
 		}
 	}
 
-	public void run(String cityName, int inhabitants, int days) throws InterruptedException {
-		System.out.println("Creating Lille city");
-		System.out.println("Creating 100 inhabitants");
-		System.out.println("Mailing letters for 6 days");
+	private void run(String cityName, int inhabitants, int days)
+			throws InterruptedException {
+		System.out.println("Creating " + cityName + " city");
+		System.out.println("Creating " + inhabitants + " inhabitants");
+		System.out.println("Mailing letters for " + days + " days");
 
 		City city = new City(cityName, inhabitants);
 		Letter<?> letter;
@@ -46,7 +60,7 @@ public class Mail {
 			System.out.println("Day " + (k + 1));
 
 			if (k < days) {
-				tmp = this.random.nextInt(100) + 1;
+				tmp = this.random.nextInt(this.maxLetters) + 1;
 				for (int i = 0; i < tmp; i++) {
 					sender = this.random.nextInt(inhabitants);
 					do {
@@ -65,7 +79,7 @@ public class Mail {
 	private Letter<?> randomLetter(Inhabitant sender, Inhabitant receiver) {
 		switch (this.random.nextInt(4)) {
 		case 1:
-			int amount = this.random.nextInt(100) + 1;
+			int amount = this.random.nextInt(this.maxAmount) + 1;
 			return new PromissoryNote(sender, receiver, amount);
 		case 2:
 			return new RegisteredLetter(sender, receiver,
@@ -82,7 +96,7 @@ public class Mail {
 			Inhabitant receiver) {
 		switch (this.random.nextInt(3)) {
 		case 1:
-			int amount = this.random.nextInt(100) + 1;
+			int amount = this.random.nextInt(this.maxAmount) + 1;
 			return new PromissoryNote(sender, receiver, amount);
 		case 2:
 			return new UrgentLetter(sender, receiver,
@@ -95,7 +109,7 @@ public class Mail {
 	private Letter<?> randomUrgentLetter(Inhabitant sender, Inhabitant receiver) {
 		switch (this.random.nextInt(3)) {
 		case 1:
-			int amount = this.random.nextInt(100) + 1;
+			int amount = this.random.nextInt(this.maxAmount) + 1;
 			return new PromissoryNote(sender, receiver, amount);
 		case 2:
 			return new RegisteredLetter(sender, receiver,
@@ -109,7 +123,7 @@ public class Mail {
 			Inhabitant receiver) {
 		switch (this.random.nextInt(2)) {
 		case 1:
-			int amount = this.random.nextInt(100) + 1;
+			int amount = this.random.nextInt(this.maxAmount) + 1;
 			return new PromissoryNote(sender, receiver, amount);
 		default:
 			return new SimpleLetter(sender, receiver, "bla bla");

@@ -14,9 +14,9 @@ import letter.Letter;
  */
 public class City {
 
-	private String name;
-	private List<Inhabitant> inhabitants = new ArrayList<Inhabitant>();
-	private List<Letter<?>> postbox = new LinkedList<Letter<?>>();
+	protected String name;
+	protected List<Inhabitant> inhabitants;
+	protected List<Letter<?>> postbox;
 
 	/**
 	 * Constructs a City with given name.
@@ -26,6 +26,8 @@ public class City {
 	 */
 	public City(String name) {
 		this.name = name;
+		this.inhabitants = new ArrayList<Inhabitant>();
+		this.postbox = new LinkedList<Letter<?>>();
 	}
 
 	/**

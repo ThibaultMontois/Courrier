@@ -1,5 +1,6 @@
 package letter;
 
+import main.Mail;
 import city.Inhabitant;
 import content.MoneyContent;
 
@@ -11,7 +12,7 @@ import content.MoneyContent;
  */
 public class PromissoryNote extends Letter<MoneyContent> {
 
-	protected int factor = 1;
+	protected int factor;
 
 	/**
 	 * Constructs a PromissoryNote with given sender, receiver and amount.
@@ -26,6 +27,7 @@ public class PromissoryNote extends Letter<MoneyContent> {
 	public PromissoryNote(Inhabitant sender, Inhabitant receiver, int amount) {
 		super(sender, receiver);
 		this.content = new MoneyContent(amount);
+		this.factor = Mail.FACTOR;
 	}
 
 	/**

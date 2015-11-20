@@ -1,5 +1,13 @@
 package test.letter;
 
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+import main.Mail;
+import letter.UrgentLetter;
+
 /**
  * Defines tests for UrgentLetter class.
  * 
@@ -8,14 +16,26 @@ package test.letter;
  */
 public class UrgentLetterTest extends LetterDecoratorTest {
 
-	public void createContent() {
-		// TODO Auto-generated method stub
-		
+	@Override
+	protected void reallyCreateLetter() {
+		super.reallyCreateLetter();
+		this.letter = new UrgentLetter(this.sender, this.receiver, this.content);
 	}
 
+	@Test
+	public void testGetCost() {
+		assertSame(Mail.COST * Mail.MULTCOST, this.letter.getCost());
+	}
+
+	@Override
+	protected void testReallyDoAction() {
+		this.letter.doAction();
+	}
+
+	@Test
 	public void testToString() {
-		// TODO Auto-generated method stub
-		
+		assertEquals(
+				"an urgent letter whose content is " + this.content.toString(),
+				this.letter.toString());
 	}
-
 }

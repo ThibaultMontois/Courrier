@@ -1,10 +1,13 @@
 package test.city;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import main.Mail;
 import city.City;
 import city.Inhabitant;
 
@@ -16,13 +19,15 @@ import city.Inhabitant;
  */
 public class InhabitantTest {
 
-	private City city;
-	private Inhabitant inhabitant;
+	protected City city;
+	protected Inhabitant inhabitant;
 
 	@Before
 	public void createInhabitant() {
 		this.city = new City("CityTest");
 		this.inhabitant = new Inhabitant(1, this.city);
+		assertNotNull(this.city);
+		assertNotNull(this.inhabitant);
 	}
 
 	@Test
@@ -37,7 +42,7 @@ public class InhabitantTest {
 
 	@Test
 	public void testGetBankAccount() {
-		assertEquals(5000, this.inhabitant.getBankAccount());
+		assertEquals(Mail.BANKACCOUNT, this.inhabitant.getBankAccount());
 	}
 
 	@Test

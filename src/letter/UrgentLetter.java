@@ -1,5 +1,6 @@
 package letter;
 
+import main.Mail;
 import city.Inhabitant;
 
 /**
@@ -22,7 +23,7 @@ public class UrgentLetter extends LetterDecorator {
 	 */
 	public UrgentLetter(Inhabitant sender, Inhabitant receiver, Letter<?> letter) {
 		super(sender, receiver, letter);
-		this.cost *= 2;
+		this.cost *= Mail.MULTCOST;
 	}
 
 	/**

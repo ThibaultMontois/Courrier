@@ -1,6 +1,7 @@
 package city;
 
 import letter.Letter;
+import main.Mail;
 
 /**
  * Defines an Inhabitant.
@@ -10,9 +11,9 @@ import letter.Letter;
  */
 public class Inhabitant {
 
-	private String name;
-	private City city;
-	private int bankAccount = 5000;
+	protected String name;
+	protected City city;
+	protected int bankAccount;
 
 	/**
 	 * Constructs an Inhabitant with given rank and City.
@@ -25,6 +26,7 @@ public class Inhabitant {
 	public Inhabitant(int rank, City city) {
 		this.name = "inhabitant-" + rank;
 		this.city = city;
+		this.bankAccount = Mail.BANKACCOUNT;
 	}
 
 	public String getName() {

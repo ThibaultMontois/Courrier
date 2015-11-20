@@ -1,6 +1,9 @@
 package test.city;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,11 +21,14 @@ import letter.SimpleLetter;
  */
 public class CityTest {
 
-	private City city;
+	protected int numberOfInhabitants;
+	protected City city;
 
 	@Before
 	public void createCity() {
-		this.city = new City("CityTest", 10);
+		this.numberOfInhabitants = 10;
+		this.city = new City("CityTest", this.numberOfInhabitants);
+		assertNotNull(this.city);
 	}
 
 	@Test
@@ -33,7 +39,7 @@ public class CityTest {
 	@Test
 	public void testGetInhabitants() {
 		assertNotNull(this.city.getInhabitants());
-		assertSame(10, this.city.getInhabitants().size());
+		assertSame(this.numberOfInhabitants, this.city.getInhabitants().size());
 	}
 
 	@Test

@@ -1,5 +1,6 @@
 package letter;
 
+import main.Mail;
 import city.Inhabitant;
 import content.Content;
 
@@ -13,8 +14,8 @@ public abstract class Letter<C extends Content> implements Content {
 
 	protected Inhabitant sender;
 	protected Inhabitant receiver;
+	protected int cost;
 	protected C content;
-	protected int cost = 1;
 
 	/**
 	 * Constructs a Letter with given sender and receiver.
@@ -27,6 +28,7 @@ public abstract class Letter<C extends Content> implements Content {
 	public Letter(Inhabitant sender, Inhabitant receiver) {
 		this.sender = sender;
 		this.receiver = receiver;
+		this.cost = Mail.COST;
 	}
 
 	public Inhabitant getSender() {
