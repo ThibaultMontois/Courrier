@@ -22,18 +22,16 @@ public class SimpleLetter extends Letter<TextContent> {
 	 *            the SimpleLetter's text
 	 */
 	public SimpleLetter(Inhabitant sender, Inhabitant receiver, String text) {
-		super(sender, receiver, text);
-	}
-
-	protected TextContent createContent(Object content) {
-		return new TextContent((String) content);
+		super(sender, receiver);
+		this.content = new TextContent(text);
 	}
 
 	/**
 	 * Called by <code>doAction</code> method.
 	 */
 	@Override
-	protected void reallyDoAction() {
+	protected String reallyDoAction() {
+		return "";
 	}
 
 	public String toString() {

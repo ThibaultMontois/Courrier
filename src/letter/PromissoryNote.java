@@ -24,13 +24,10 @@ public class PromissoryNote extends Letter<MoneyContent> {
 	 *            the PromissoryNote's amount
 	 */
 	public PromissoryNote(Inhabitant sender, Inhabitant receiver, int amount) {
-		super(sender, receiver, amount);
+		super(sender, receiver);
+		this.content = new MoneyContent(amount);
 	}
-	
-	protected MoneyContent createContent(Object content) {
-		return new MoneyContent((Integer) content);
-	}
-	
+
 	/**
 	 * This kind of Letter cost is increased by <code>factor</code> percent of
 	 * the Content's amount.
@@ -43,11 +40,12 @@ public class PromissoryNote extends Letter<MoneyContent> {
 	 * Called by <code>doAction</code> method.
 	 */
 	@Override
-	protected void reallyDoAction() {
-		this.sender.debit(this.content.getAmount());
-		this.receiver.credit(this.content.getAmount());
-		this.receiver.getCity().sendLetter(
+	protected String reallyDoAction() {
+		String str = this.sender.debit(this.content.getAmount());
+		str += this.receiver.credit(this.content.getAmount());
+		str += this.receiver.getCity().sendLetter(
 				new ThanksLetter(this.receiver, this.sender, this.toString()));
+		return str;
 	}
 
 	public String toString() {

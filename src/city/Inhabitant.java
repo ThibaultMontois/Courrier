@@ -45,13 +45,14 @@ public class Inhabitant {
 	 * @param amount
 	 *            the amount to add
 	 */
-	public void credit(int amount) {
-		String tmp = amount < 2 ? " euro" : " euros";
-		System.out.print("   + " + this.name + " account is credited with "
-				+ amount + tmp);
+	public String credit(int amount) {
+		String str;
 		this.bankAccount += amount;
-		tmp = this.bankAccount < 2 ? " euro" : " euros";
-		System.out.println("; its balance is now " + this.bankAccount + tmp);
+		str = "   + " + this.name + " account is credited with " + amount;
+		str += amount < 2 ? " euro" : " euros";
+		str += "; its balance is now " + this.bankAccount;
+		str += this.bankAccount < 2 ? " euro\n" : " euros\n";
+		return str;
 	}
 
 	/**
@@ -60,13 +61,15 @@ public class Inhabitant {
 	 * @param amount
 	 *            the amount to remove
 	 */
-	public void debit(int amount) {
-		String tmp = amount < 2 ? " euro" : " euros";
-		System.out.print("   - " + amount + tmp + " are debited from "
-				+ this.name + " account ");
+	public String debit(int amount) {
+		String str;
 		this.bankAccount -= amount;
-		tmp = this.bankAccount < 2 ? " euro" : " euros";
-		System.out.println("whose balance is now " + this.bankAccount + tmp);
+		str = "   - " + amount;
+		str += amount < 2 ? " euro" : " euros";
+		str += " are debited from " + this.name
+				+ " account whose balance is now " + this.bankAccount;
+		str += this.bankAccount < 2 ? " euro\n" : " euros\n";
+		return str;
 	}
 
 	public void receiveLetter(Letter<?> letter) {

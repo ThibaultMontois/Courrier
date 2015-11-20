@@ -29,8 +29,8 @@ public class UrgentLetter extends OptionLetter {
 	 * Called by <code>doAction</code> method.
 	 */
 	@Override
-	protected void reallyDoAction() {
-		this.content.reallyDoAction();
+	protected String reallyDoAction() {
+		return this.content.reallyDoAction();
 	}
 
 	public String toString() {

@@ -62,13 +62,15 @@ public class City {
 	 * @param letter
 	 *            the Letter to add
 	 */
-	public void sendLetter(Letter<?> letter) {
-		String tmp = letter.getCost() < 2 ? " euro" : " euros";
-		System.out.println("-> " + letter.getSender().getName() + " mails "
-				+ letter.toString() + " to " + letter.getReceiver().getName()
-				+ " for a cost of " + letter.getCost() + tmp);
+	public String sendLetter(Letter<?> letter) {
+		String str;
 		this.postbox.add(letter);
-		letter.getSender().debit(letter.getCost());
+		str = "-> " + letter.getSender().getName() + " mails "
+				+ letter.toString() + " to " + letter.getReceiver().getName()
+				+ " for a cost of " + letter.getCost();
+		str += letter.getCost() < 2 ? " euro\n" : " euros\n";
+		str += letter.getSender().debit(letter.getCost());
+		return str;
 	}
 
 	/**

@@ -23,16 +23,11 @@ public abstract class Letter<C extends Content> implements Content {
 	 *            the Letter's sender
 	 * @param receiver
 	 *            the Letter'receiver
-	 * @param content
-	 *            the Letter's Content
 	 */
-	public Letter(Inhabitant sender, Inhabitant receiver, Object content) {
+	public Letter(Inhabitant sender, Inhabitant receiver) {
 		this.sender = sender;
 		this.receiver = receiver;
-		this.content = this.createContent(content);
 	}
-
-	protected abstract C createContent(Object content);
 
 	public Inhabitant getSender() {
 		return this.sender;
@@ -52,14 +47,15 @@ public abstract class Letter<C extends Content> implements Content {
 	 * This method calls <code>reallyDoAction</code> method that must be
 	 * implemented
 	 */
-	public void doAction() {
-		System.out.println("<- " + this.receiver.getName() + " receives "
-				+ this.toString() + " from " + this.sender.getName());
-		this.reallyDoAction();
+	public String doAction() {
+		String str = "<- " + this.receiver.getName() + " receives "
+				+ this.toString() + " from " + this.sender.getName();
+		str += this.reallyDoAction();
+		return str;
 	}
 
 	/**
 	 * Called by <code>doAction</code> method.
 	 */
-	protected abstract void reallyDoAction();
+	protected abstract String reallyDoAction();
 }

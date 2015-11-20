@@ -20,7 +20,8 @@ public class RegisteredLetter extends OptionLetter {
 	 * @param letter
 	 *            the RegisteredLetter's content
 	 */
-	public RegisteredLetter(Inhabitant sender, Inhabitant receiver, Letter<?> letter) {
+	public RegisteredLetter(Inhabitant sender, Inhabitant receiver,
+			Letter<?> letter) {
 		super(sender, receiver, letter);
 		this.cost += 15;
 	}
@@ -29,11 +30,12 @@ public class RegisteredLetter extends OptionLetter {
 	 * Called by <code>doAction</code> method.
 	 */
 	@Override
-	protected void reallyDoAction() {
-		this.content.reallyDoAction();
-		this.receiver.getCity().sendLetter(
+	protected String reallyDoAction() {
+		String str = this.content.reallyDoAction();
+		str += this.receiver.getCity().sendLetter(
 				new AcknowledgmentOfReceipt(this.receiver, this.sender, this
 						.toString()));
+		return str;
 	}
 
 	public String toString() {

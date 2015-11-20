@@ -21,10 +21,7 @@ public abstract class OptionLetter extends Letter<Letter<?>> {
 	 *            the OptionLetter's content
 	 */
 	public OptionLetter(Inhabitant sender, Inhabitant receiver, Letter<?> letter) {
-		super(sender, receiver, letter);
-	}
-
-	protected Letter<?> createContent(Object content) {
-		return (Letter<?>) content;
+		super(sender, receiver);
+		this.content = letter;
 	}
 }

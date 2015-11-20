@@ -54,7 +54,7 @@ public class Mail {
 					} while ((receiver = this.random.nextInt(inhabitants)) == sender);
 					letter = this.randomLetter(city.getInhabitants()
 							.get(sender), city.getInhabitants().get(receiver));
-					city.sendLetter(letter);
+					System.out.println(city.sendLetter(letter));
 				}
 			}
 
