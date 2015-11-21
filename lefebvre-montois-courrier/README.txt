@@ -121,3 +121,18 @@ public class PromissoryNote extends Letter<MoneyContent> {
   [...]
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
