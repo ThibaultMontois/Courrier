@@ -6,6 +6,7 @@ import java.util.List;
 
 import letter.Letter;
 import printer.Printer;
+import printer.StandardPrinter;
 
 /**
  * Defines a City.
@@ -26,11 +27,11 @@ public class City {
 	 * @param name
 	 *            the City's name
 	 */
-	public City(String name, Printer printer) {
+	public City(String name) {
 		this.name = name;
 		this.inhabitants = new ArrayList<Inhabitant>();
 		this.postbox = new LinkedList<Letter<?>>();
-		this.printer = printer;
+		this.printer = new StandardPrinter();
 	}
 
 	/**
@@ -42,10 +43,10 @@ public class City {
 	 * @param numberOfInhabitants
 	 *            the number of Inhabitants
 	 */
-	public City(String name, Printer printer, int numberOfInhabitants) {
-		this(name, printer);
+	public City(String name, int numberOfInhabitants) {
+		this(name);
 		for (int i = 0; i < numberOfInhabitants; i++) {
-			this.inhabitants.add(new Inhabitant(i + 1, this, printer));
+			this.inhabitants.add(new Inhabitant(i + 1, this));
 		}
 	}
 
@@ -61,6 +62,10 @@ public class City {
 		return this.postbox;
 	}
 
+	public void setPrinter(Printer printer) {
+		this.printer = printer;
+	}
+
 	/**
 	 * Adds a Letter in the postbox.
 	 * 
@@ -74,12 +79,12 @@ public class City {
 	}
 
 	/**
-	 * Distributes all the postbox's Letter.
+	 * Distributes all the postbox's Letters.
 	 */
 	public void distributeLetters() {
 		List<Letter<?>> bag = new LinkedList<Letter<?>>(this.postbox);
 		this.postbox.clear();
 		for (Letter<?> letter : bag)
-			letter.getReceiver().receiveLetter(letter);
+			letter.doAction();
 	}
 }

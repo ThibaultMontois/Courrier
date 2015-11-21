@@ -1,6 +1,5 @@
 package test.city;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertEquals;
 
@@ -10,7 +9,6 @@ import org.junit.Test;
 import main.Mail;
 import city.City;
 import city.Inhabitant;
-import printer.Printer;
 
 import test.mock.MockPrinter;
 
@@ -22,18 +20,14 @@ import test.mock.MockPrinter;
  */
 public class InhabitantTest {
 
-	protected Printer printer;
 	protected City city;
 	protected Inhabitant inhabitant;
 
 	@Before
 	public void createInhabitant() {
-		this.printer = new MockPrinter();
-		this.city = new City("CityTest", this.printer);
-		this.inhabitant = new Inhabitant(1, this.city, this.printer);
-		assertNotNull(this.printer);
-		assertNotNull(this.city);
-		assertNotNull(this.inhabitant);
+		this.city = new City("CityTest");
+		this.inhabitant = new Inhabitant(1, this.city);
+		this.inhabitant.setPrinter(new MockPrinter());
 	}
 
 	@Test

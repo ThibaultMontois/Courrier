@@ -1,6 +1,5 @@
 package test.content;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
@@ -23,7 +22,6 @@ public class TextContentTest implements ContentTest {
 	public void createMoneyContent() {
 		this.text = "TextTest";
 		this.textContent = new TextContent(this.text);
-		assertNotNull(this.textContent);
 	}
 
 	@Test

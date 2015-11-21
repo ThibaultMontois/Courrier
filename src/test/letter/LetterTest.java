@@ -1,12 +1,9 @@
 package test.letter;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import printer.Printer;
 
 import main.Mail;
 import city.City;
@@ -25,7 +22,6 @@ import test.mock.MockPrinter;
  */
 public abstract class LetterTest<C extends Content> implements ContentTest {
 
-	protected Printer printer;
 	protected City city;
 	protected Inhabitant sender;
 	protected Inhabitant receiver;
@@ -33,16 +29,14 @@ public abstract class LetterTest<C extends Content> implements ContentTest {
 
 	@Before
 	public void createLetter() {
-		this.printer = new MockPrinter();
-		this.city = new City("CityTest", this.printer);
-		this.sender = new Inhabitant(1, this.city, this.printer);
-		this.receiver = new Inhabitant(2, this.city, this.printer);
+		this.city = new City("CityTest");
+		this.city.setPrinter(new MockPrinter());
+		this.sender = new Inhabitant(1, this.city);
+		this.sender.setPrinter(new MockPrinter());
+		this.receiver = new Inhabitant(2, this.city);
+		this.receiver.setPrinter(new MockPrinter());
 		this.reallyCreateLetter();
-		assertNotNull(this.printer);
-		assertNotNull(this.city);
-		assertNotNull(this.sender);
-		assertNotNull(this.receiver);
-		assertNotNull(this.letter);
+		this.letter.setPrinter(new MockPrinter());
 	}
 
 	protected abstract void reallyCreateLetter();

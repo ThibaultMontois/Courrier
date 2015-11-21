@@ -9,8 +9,6 @@ import letter.SimpleLetter;
 import letter.PromissoryNote;
 import letter.RegisteredLetter;
 import letter.UrgentLetter;
-import printer.Printer;
-import printer.StandardPrinter;
 
 /**
  * Defines the main class Mail.
@@ -35,7 +33,7 @@ public class Mail {
 	private int maxLetters;
 	// the maximum PromissoryNote's amount
 	private int maxAmount;
-	private Printer printer;
+
 	private Random random;
 
 	/**
@@ -49,7 +47,6 @@ public class Mail {
 	public Mail(int maxLetters, int maxAmount) {
 		this.maxLetters = maxLetters;
 		this.maxAmount = maxAmount;
-		this.printer = new StandardPrinter();
 		this.random = new Random();
 	}
 
@@ -73,7 +70,7 @@ public class Mail {
 		System.out.println("Creating " + inhabitants + " inhabitants");
 		System.out.println("Mailing letters for " + days + " days");
 
-		City city = new City(cityName, this.printer, inhabitants);
+		City city = new City(cityName, inhabitants);
 		Letter<?> letter;
 		int tmp;
 		int sender;
@@ -105,15 +102,14 @@ public class Mail {
 		switch (this.random.nextInt(4)) {
 		case 1:
 			int amount = this.random.nextInt(this.maxAmount) + 1;
-			return new PromissoryNote(sender, receiver, this.printer, amount);
+			return new PromissoryNote(sender, receiver, amount);
 		case 2:
-			return new RegisteredLetter(sender, receiver, this.printer,
-					this.randomRegisteredLetter(sender, receiver));
+			return new RegisteredLetter(this.randomRegisteredLetter(sender,
+					receiver));
 		case 3:
-			return new UrgentLetter(sender, receiver, this.printer,
-					this.randomUrgentLetter(sender, receiver));
+			return new UrgentLetter(this.randomUrgentLetter(sender, receiver));
 		default:
-			return new SimpleLetter(sender, receiver, this.printer, "bla bla");
+			return new SimpleLetter(sender, receiver, "bla bla");
 		}
 	}
 
@@ -123,12 +119,12 @@ public class Mail {
 		switch (this.random.nextInt(3)) {
 		case 1:
 			int amount = this.random.nextInt(this.maxAmount) + 1;
-			return new PromissoryNote(sender, receiver, this.printer, amount);
+			return new PromissoryNote(sender, receiver, amount);
 		case 2:
-			return new UrgentLetter(sender, receiver, this.printer,
-					this.randomUrgentAndRegisteredLetter(sender, receiver));
+			return new UrgentLetter(this.randomUrgentAndRegisteredLetter(
+					sender, receiver));
 		default:
-			return new SimpleLetter(sender, receiver, this.printer, "bla bla");
+			return new SimpleLetter(sender, receiver, "bla bla");
 		}
 	}
 
@@ -137,12 +133,12 @@ public class Mail {
 		switch (this.random.nextInt(3)) {
 		case 1:
 			int amount = this.random.nextInt(this.maxAmount) + 1;
-			return new PromissoryNote(sender, receiver, this.printer, amount);
+			return new PromissoryNote(sender, receiver, amount);
 		case 2:
-			return new RegisteredLetter(sender, receiver, this.printer,
-					this.randomUrgentAndRegisteredLetter(sender, receiver));
+			return new RegisteredLetter(this.randomUrgentAndRegisteredLetter(
+					sender, receiver));
 		default:
-			return new SimpleLetter(sender, receiver, this.printer, "bla bla");
+			return new SimpleLetter(sender, receiver, "bla bla");
 		}
 	}
 
@@ -153,9 +149,9 @@ public class Mail {
 		switch (this.random.nextInt(2)) {
 		case 1:
 			int amount = this.random.nextInt(this.maxAmount) + 1;
-			return new PromissoryNote(sender, receiver, this.printer, amount);
+			return new PromissoryNote(sender, receiver, amount);
 		default:
-			return new SimpleLetter(sender, receiver, this.printer, "bla bla");
+			return new SimpleLetter(sender, receiver, "bla bla");
 		}
 	}
 }

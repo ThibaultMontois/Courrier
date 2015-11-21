@@ -1,7 +1,6 @@
 package letter;
 
 import city.Inhabitant;
-import printer.Printer;
 
 /**
  * Defines a ThanksLetter.
@@ -21,9 +20,8 @@ public class ThanksLetter extends SimpleLetter {
 	 * @param text
 	 *            the ThanksLetter's text
 	 */
-	public ThanksLetter(Inhabitant sender, Inhabitant receiver,
-			Printer printer, String text) {
-		super(sender, receiver, printer, "thanks for " + text);
+	public ThanksLetter(Inhabitant sender, Inhabitant receiver, String text) {
+		super(sender, receiver, "thanks for " + text);
 	}
 
 	public String toString() {

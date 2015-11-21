@@ -23,7 +23,7 @@ public class PromissoryNoteTest extends LetterTest<MoneyContent> {
 	protected void reallyCreateLetter() {
 		this.amount = 100;
 		this.letter = new PromissoryNote(this.sender, this.receiver,
-				this.printer, this.amount);
+				this.amount);
 	}
 
 	@Test

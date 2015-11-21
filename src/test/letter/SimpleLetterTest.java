@@ -19,13 +19,16 @@ public class SimpleLetterTest extends LetterTest<TextContent> {
 
 	@Override
 	protected void reallyCreateLetter() {
-		this.letter = new SimpleLetter(this.sender, this.receiver,
-				this.printer, this.text);
+		this.letter = new SimpleLetter(this.sender, this.receiver, this.text);
 	}
 
 	@Override
 	protected void testReallyDoAction() {
+		int amountS = this.sender.getBankAccount();
+		int amountR = this.receiver.getBankAccount();
 		this.letter.doAction();
+		assertEquals(amountS, this.sender.getBankAccount());
+		assertEquals(amountR, this.receiver.getBankAccount());
 	}
 
 	@Test

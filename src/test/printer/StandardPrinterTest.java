@@ -1,6 +1,5 @@
 package test.printer;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
@@ -26,36 +25,25 @@ import printer.StandardPrinter;
  */
 public class StandardPrinterTest implements PrinterTest {
 
-	protected Printer printer;
 	protected Letter<?> letter;
 	protected Letter<?> urgentLetter;
+	protected Printer printer;
 	protected ByteArrayOutputStream outContent;
 
 	@Before
 	public void createPrinterAndLetters() {
+		City city = new City("CityTest");
+		Inhabitant sender = new Inhabitant(1, city);
+		Inhabitant receiver = new Inhabitant(2, city);
+		this.letter = new SimpleLetter(sender, receiver, "TextTest");
+		this.urgentLetter = new UrgentLetter(this.letter);
 		this.printer = new StandardPrinter();
-		City city = new City("CityTest", this.printer);
-		Inhabitant sender = new Inhabitant(1, city, this.printer);
-		Inhabitant receiver = new Inhabitant(2, city, this.printer);
-		this.letter = new SimpleLetter(sender, receiver, this.printer,
-				"TextTest");
-		this.urgentLetter = new UrgentLetter(sender, receiver, this.printer,
-				this.letter);
-		assertNotNull(this.printer);
-		assertNotNull(city);
-		assertNotNull(sender);
-		assertNotNull(receiver);
-		assertNotNull(this.letter);
-		assertNotNull(this.urgentLetter);
 	}
 
 	@Before
 	public void setUpStream() {
 		this.outContent = new ByteArrayOutputStream();
-		PrintStream printStream = new PrintStream(this.outContent);
-		System.setOut(printStream);
-		assertNotNull(this.outContent);
-		assertNotNull(printStream);
+		System.setOut(new PrintStream(this.outContent));
 	}
 
 	@Test

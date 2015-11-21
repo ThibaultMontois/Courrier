@@ -1,8 +1,8 @@
 package city;
 
 import main.Mail;
-import letter.Letter;
 import printer.Printer;
+import printer.StandardPrinter;
 
 /**
  * Defines an Inhabitant.
@@ -25,11 +25,11 @@ public class Inhabitant {
 	 * @param city
 	 *            the Inhabitant's City
 	 */
-	public Inhabitant(int rank, City city, Printer printer) {
+	public Inhabitant(int rank, City city) {
 		this.name = "inhabitant-" + rank;
 		this.city = city;
 		this.bankAccount = Mail.BANKACCOUNT;
-		this.printer = printer;
+		this.printer = new StandardPrinter();
 	}
 
 	public String getName() {
@@ -42,6 +42,10 @@ public class Inhabitant {
 
 	public int getBankAccount() {
 		return this.bankAccount;
+	}
+
+	public void setPrinter(Printer printer) {
+		this.printer = printer;
 	}
 
 	/**
@@ -64,9 +68,5 @@ public class Inhabitant {
 	public void debit(int amount) {
 		this.bankAccount -= amount;
 		this.printer.printDebit(this.name, amount, this.bankAccount);
-	}
-
-	public void receiveLetter(Letter<?> letter) {
-		letter.doAction();
 	}
 }

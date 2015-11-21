@@ -19,8 +19,7 @@ public class RegisteredLetterTest extends LetterDecoratorTest {
 	@Override
 	protected void reallyCreateLetter() {
 		super.reallyCreateLetter();
-		this.letter = new RegisteredLetter(this.sender, this.receiver,
-				this.printer, this.content);
+		this.letter = new RegisteredLetter(this.content);
 	}
 
 	@Test
@@ -30,9 +29,11 @@ public class RegisteredLetterTest extends LetterDecoratorTest {
 
 	@Override
 	protected void testReallyDoAction() {
-		int amount = this.receiver.getBankAccount();
+		int amountS = this.sender.getBankAccount();
+		int amountR = this.receiver.getBankAccount();
 		this.letter.doAction();
-		assertEquals(amount - Mail.COST, this.receiver.getBankAccount());
+		assertEquals(amountS, this.sender.getBankAccount());
+		assertEquals(amountR - Mail.COST, this.receiver.getBankAccount());
 	}
 
 	@Test

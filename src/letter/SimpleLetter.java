@@ -2,7 +2,6 @@ package letter;
 
 import city.Inhabitant;
 import content.TextContent;
-import printer.Printer;
 
 /**
  * Defines a SimpleLetter.
@@ -22,9 +21,8 @@ public class SimpleLetter extends Letter<TextContent> {
 	 * @param text
 	 *            the SimpleLetter's text
 	 */
-	public SimpleLetter(Inhabitant sender, Inhabitant receiver,
-			Printer printer, String text) {
-		super(sender, receiver, printer);
+	public SimpleLetter(Inhabitant sender, Inhabitant receiver, String text) {
+		super(sender, receiver);
 		this.content = new TextContent(text);
 	}
 

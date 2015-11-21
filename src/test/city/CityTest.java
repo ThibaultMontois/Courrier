@@ -27,14 +27,18 @@ public class CityTest {
 	protected int numberOfInhabitants;
 	protected Printer printer;
 	protected City city;
+	protected Letter<?> letter;
 
 	@Before
 	public void createCity() {
 		this.numberOfInhabitants = 10;
-		this.printer = new MockPrinter();
-		this.city = new City("CityTest", this.printer, this.numberOfInhabitants);
-		assertNotNull(this.printer);
-		assertNotNull(this.city);
+		this.city = new City("CityTest", this.numberOfInhabitants);
+		this.city.setPrinter(new MockPrinter());
+		for (Inhabitant inhabitant : this.city.getInhabitants())
+			inhabitant.setPrinter(new MockPrinter());
+		this.letter = new SimpleLetter(this.city.getInhabitants().get(4),
+				this.city.getInhabitants().get(2), "bla bla");
+		this.letter.setPrinter(new MockPrinter());
 	}
 
 	@Test
@@ -56,20 +60,14 @@ public class CityTest {
 
 	@Test
 	public void testSendLetter() {
-		Inhabitant ih1 = this.city.getInhabitants().get(4);
-		Inhabitant ih2 = this.city.getInhabitants().get(2);
-		Letter<?> letter = new SimpleLetter(ih1, ih2, this.printer, "bla bla");
-		this.city.sendLetter(letter);
+		this.city.sendLetter(this.letter);
 		assertSame(1, this.city.getPostbox().size());
-		assertEquals(letter, this.city.getPostbox().get(0));
+		assertEquals(this.letter, this.city.getPostbox().get(0));
 	}
 
 	@Test
 	public void testDistributeLetters() {
-		Inhabitant ih1 = this.city.getInhabitants().get(4);
-		Inhabitant ih2 = this.city.getInhabitants().get(2);
-		Letter<?> letter = new SimpleLetter(ih1, ih2, this.printer, "bla bla");
-		this.city.sendLetter(letter);
+		this.city.sendLetter(this.letter);
 		this.city.distributeLetters();
 		assertSame(0, this.city.getPostbox().size());
 	}

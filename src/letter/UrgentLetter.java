@@ -1,8 +1,6 @@
 package letter;
 
 import main.Mail;
-import city.Inhabitant;
-import printer.Printer;
 
 /**
  * Defines an UrgentLetter.
@@ -13,18 +11,13 @@ import printer.Printer;
 public class UrgentLetter extends LetterDecorator {
 
 	/**
-	 * Constructs an UrgentLetter with given sender, receiver and Letter.
+	 * Constructs an UrgentLetter with given Letter.
 	 * 
-	 * @param sender
-	 *            the UrgentLetter's sender
-	 * @param receiver
-	 *            the UrgentLetter's receiver
 	 * @param letter
 	 *            the UrgentLetter's content
 	 */
-	public UrgentLetter(Inhabitant sender, Inhabitant receiver,
-			Printer printer, Letter<?> letter) {
-		super(sender, receiver, printer, letter);
+	public UrgentLetter(Letter<?> letter) {
+		super(letter);
 		this.cost *= Mail.MULTCOST;
 	}
 

@@ -4,6 +4,7 @@ import main.Mail;
 import city.Inhabitant;
 import content.Content;
 import printer.Printer;
+import printer.StandardPrinter;
 
 /**
  * Defines a Letter.
@@ -16,8 +17,8 @@ public abstract class Letter<C extends Content> implements Content {
 	protected Inhabitant sender;
 	protected Inhabitant receiver;
 	protected int cost;
-	protected C content;
 	protected Printer printer;
+	protected C content;
 
 	/**
 	 * Constructs a Letter with given sender and receiver.
@@ -27,11 +28,11 @@ public abstract class Letter<C extends Content> implements Content {
 	 * @param receiver
 	 *            the Letter'receiver
 	 */
-	public Letter(Inhabitant sender, Inhabitant receiver, Printer printer) {
+	public Letter(Inhabitant sender, Inhabitant receiver) {
 		this.sender = sender;
 		this.receiver = receiver;
 		this.cost = Mail.COST;
-		this.printer = printer;
+		this.printer = new StandardPrinter();
 	}
 
 	public Inhabitant getSender() {
@@ -44,6 +45,10 @@ public abstract class Letter<C extends Content> implements Content {
 
 	public int getCost() {
 		return this.cost;
+	}
+
+	public void setPrinter(Printer printer) {
+		this.printer = printer;
 	}
 
 	/**

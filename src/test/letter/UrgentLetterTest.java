@@ -19,8 +19,7 @@ public class UrgentLetterTest extends LetterDecoratorTest {
 	@Override
 	protected void reallyCreateLetter() {
 		super.reallyCreateLetter();
-		this.letter = new UrgentLetter(this.sender, this.receiver,
-				this.printer, this.content);
+		this.letter = new UrgentLetter(this.content);
 	}
 
 	@Test
@@ -30,7 +29,11 @@ public class UrgentLetterTest extends LetterDecoratorTest {
 
 	@Override
 	protected void testReallyDoAction() {
+		int amountS = this.sender.getBankAccount();
+		int amountR = this.receiver.getBankAccount();
 		this.letter.doAction();
+		assertEquals(amountS, this.sender.getBankAccount());
+		assertEquals(amountR, this.receiver.getBankAccount());
 	}
 
 	@Test

@@ -3,7 +3,6 @@ package letter;
 import main.Mail;
 import city.Inhabitant;
 import content.MoneyContent;
-import printer.Printer;
 
 /**
  * Defines a PromissoryNote.
@@ -25,9 +24,8 @@ public class PromissoryNote extends Letter<MoneyContent> {
 	 * @param amount
 	 *            the PromissoryNote's amount
 	 */
-	public PromissoryNote(Inhabitant sender, Inhabitant receiver,
-			Printer printer, int amount) {
-		super(sender, receiver, printer);
+	public PromissoryNote(Inhabitant sender, Inhabitant receiver, int amount) {
+		super(sender, receiver);
 		this.content = new MoneyContent(amount);
 		this.factor = Mail.PNFACTOR;
 	}
@@ -48,8 +46,7 @@ public class PromissoryNote extends Letter<MoneyContent> {
 		this.sender.debit(this.content.getAmount());
 		this.receiver.credit(this.content.getAmount());
 		this.receiver.getCity().sendLetter(
-				new ThanksLetter(this.receiver, this.sender, this.printer, this
-						.toString()));
+				new ThanksLetter(this.receiver, this.sender, this.toString()));
 	}
 
 	public String toString() {

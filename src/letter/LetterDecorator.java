@@ -1,10 +1,7 @@
 package letter;
 
-import city.Inhabitant;
-import printer.Printer;
-
 /**
- * Defines an OptionLetter.
+ * Defines an LetterDecorator.
  * 
  * @author Benjamin Lefebvre
  * @author Thibault Montois
@@ -12,18 +9,13 @@ import printer.Printer;
 public abstract class LetterDecorator extends Letter<Letter<?>> {
 
 	/**
-	 * Constructs an OptionLetter with given sender, receiver and Letter.
+	 * Constructs an LetterDecorator with given Letter.
 	 * 
-	 * @param sender
-	 *            the OptionLetter's sender
-	 * @param receiver
-	 *            the OptionLetter's receiver
 	 * @param letter
-	 *            the OptionLetter's content
+	 *            the LetterDecorator's content
 	 */
-	public LetterDecorator(Inhabitant sender, Inhabitant receiver,
-			Printer printer, Letter<?> letter) {
-		super(sender, receiver, printer);
+	public LetterDecorator(Letter<?> letter) {
+		super(letter.getSender(), letter.getReceiver());
 		this.content = letter;
 	}
 }
