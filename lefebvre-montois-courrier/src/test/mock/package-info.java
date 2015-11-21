@@ -1,7 +1,7 @@
 /**
- * Manages all {@link printer.Printer printers}.
+ * Manages all mocks.
  * 
  * @author Benjamin Lefebvre
  * @author Thibault Montois
  */
-package printer;
+package test.mock;
