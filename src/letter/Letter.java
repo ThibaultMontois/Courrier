@@ -3,6 +3,7 @@ package letter;
 import main.Mail;
 import city.Inhabitant;
 import content.Content;
+import printer.Printer;
 
 /**
  * Defines a Letter.
@@ -16,6 +17,7 @@ public abstract class Letter<C extends Content> implements Content {
 	protected Inhabitant receiver;
 	protected int cost;
 	protected C content;
+	protected Printer printer;
 
 	/**
 	 * Constructs a Letter with given sender and receiver.
@@ -25,10 +27,11 @@ public abstract class Letter<C extends Content> implements Content {
 	 * @param receiver
 	 *            the Letter'receiver
 	 */
-	public Letter(Inhabitant sender, Inhabitant receiver) {
+	public Letter(Inhabitant sender, Inhabitant receiver, Printer printer) {
 		this.sender = sender;
 		this.receiver = receiver;
 		this.cost = Mail.COST;
+		this.printer = printer;
 	}
 
 	public Inhabitant getSender() {
@@ -49,15 +52,13 @@ public abstract class Letter<C extends Content> implements Content {
 	 * This method calls <code>reallyDoAction</code> method that must be
 	 * implemented
 	 */
-	public String doAction() {
-		String str = "<- " + this.receiver.getName() + " receives "
-				+ this.toString() + " from " + this.sender.getName() + "\n";
-		str += this.reallyDoAction();
-		return str;
+	public void doAction() {
+		this.printer.printDoAction(this);
+		this.reallyDoAction();
 	}
 
 	/**
 	 * Called by <code>doAction</code> method.
 	 */
-	protected abstract String reallyDoAction();
+	protected abstract void reallyDoAction();
 }

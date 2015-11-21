@@ -3,6 +3,7 @@ package letter;
 import main.Mail;
 import city.Inhabitant;
 import content.MoneyContent;
+import printer.Printer;
 
 /**
  * Defines a PromissoryNote.
@@ -24,10 +25,11 @@ public class PromissoryNote extends Letter<MoneyContent> {
 	 * @param amount
 	 *            the PromissoryNote's amount
 	 */
-	public PromissoryNote(Inhabitant sender, Inhabitant receiver, int amount) {
-		super(sender, receiver);
+	public PromissoryNote(Inhabitant sender, Inhabitant receiver,
+			Printer printer, int amount) {
+		super(sender, receiver, printer);
 		this.content = new MoneyContent(amount);
-		this.factor = Mail.FACTOR;
+		this.factor = Mail.PNFACTOR;
 	}
 
 	/**
@@ -42,12 +44,12 @@ public class PromissoryNote extends Letter<MoneyContent> {
 	 * Called by <code>doAction</code> method.
 	 */
 	@Override
-	protected String reallyDoAction() {
-		String str = this.sender.debit(this.content.getAmount());
-		str += this.receiver.credit(this.content.getAmount());
-		str += this.receiver.getCity().sendLetter(
-				new ThanksLetter(this.receiver, this.sender, this.toString()));
-		return str;
+	protected void reallyDoAction() {
+		this.sender.debit(this.content.getAmount());
+		this.receiver.credit(this.content.getAmount());
+		this.receiver.getCity().sendLetter(
+				new ThanksLetter(this.receiver, this.sender, this.printer, this
+						.toString()));
 	}
 
 	public String toString() {

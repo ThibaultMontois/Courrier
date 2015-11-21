@@ -17,7 +17,8 @@ public abstract class LetterDecoratorTest extends LetterTest<Letter<?>> {
 
 	@Override
 	protected void reallyCreateLetter() {
-		this.content = new SimpleLetter(this.sender, this.receiver, "TextTest");
+		this.content = new SimpleLetter(this.sender, this.receiver,
+				this.printer, "TextTest");
 		assertNotNull(this.content);
 	}
 }

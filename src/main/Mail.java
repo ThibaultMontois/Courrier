@@ -9,6 +9,8 @@ import letter.SimpleLetter;
 import letter.PromissoryNote;
 import letter.RegisteredLetter;
 import letter.UrgentLetter;
+import printer.Printer;
+import printer.StandardPrinter;
 
 /**
  * Defines the main class Mail.
@@ -18,38 +20,60 @@ import letter.UrgentLetter;
  */
 public class Mail {
 
+	// default Inhabitant's bank account
 	public static final int BANKACCOUNT = 5000;
+	// default Letter's cost
 	public static final int COST = 1;
-	public static final int FACTOR = 1;
+	// default PromissoryNote factor
+	public static final int PNFACTOR = 1;
+	// default RegisteredLetter's additional cost
 	public static final int ADDCOST = 15;
+	// default UrgentLetter's cost multiplier
 	public static final int MULTCOST = 2;
 
+	// the maximum number of letters sent each day
 	private int maxLetters;
+	// the maximum PromissoryNote's amount
 	private int maxAmount;
+	private Printer printer;
 	private Random random;
 
-	private Mail(int maxLetters, int maxAmount) {
+	/**
+	 * Constructs a Mail with given maximum letters and amount.
+	 * 
+	 * @param maxLetters
+	 *            the maximum number of letters sent each day
+	 * @param maxAmount
+	 *            the maximum PromissoryNote's amount
+	 */
+	public Mail(int maxLetters, int maxAmount) {
 		this.maxLetters = maxLetters;
 		this.maxAmount = maxAmount;
+		this.printer = new StandardPrinter();
 		this.random = new Random();
 	}
 
 	public static void main(String[] args) {
 		Mail mail = new Mail(20, 100);
-		try {
-			mail.run("Lille", 100, 6);
-		} catch (InterruptedException e) {
-			System.out.println("Thread.sleep() error");
-		}
+		mail.run("Lille", 100, 6);
 	}
 
-	private void run(String cityName, int inhabitants, int days)
-			throws InterruptedException {
+	/**
+	 * Runs the Mail program.
+	 * 
+	 * @param cityName
+	 *            the City's name
+	 * @param inhabitants
+	 *            the number of Inhabitants
+	 * @param days
+	 *            the number of days that mails will be sent
+	 */
+	public void run(String cityName, int inhabitants, int days) {
 		System.out.println("Creating " + cityName + " city");
 		System.out.println("Creating " + inhabitants + " inhabitants");
 		System.out.println("Mailing letters for " + days + " days");
 
-		City city = new City(cityName, inhabitants);
+		City city = new City(cityName, this.printer, inhabitants);
 		Letter<?> letter;
 		int tmp;
 		int sender;
@@ -64,69 +88,74 @@ public class Mail {
 				for (int i = 0; i < tmp; i++) {
 					sender = this.random.nextInt(inhabitants);
 					do {
-						Thread.sleep(100);
-					} while ((receiver = this.random.nextInt(inhabitants)) == sender);
+						receiver = this.random.nextInt(inhabitants);
+					} while (receiver == sender);
 					letter = this.randomLetter(city.getInhabitants()
 							.get(sender), city.getInhabitants().get(receiver));
-					System.out.print(city.sendLetter(letter));
+					city.sendLetter(letter);
 				}
 			}
 
-			System.out.print(city.distributeLetters());
+			city.distributeLetters();
 		}
 	}
 
+	// Returns a Letter
 	private Letter<?> randomLetter(Inhabitant sender, Inhabitant receiver) {
 		switch (this.random.nextInt(4)) {
 		case 1:
 			int amount = this.random.nextInt(this.maxAmount) + 1;
-			return new PromissoryNote(sender, receiver, amount);
+			return new PromissoryNote(sender, receiver, this.printer, amount);
 		case 2:
-			return new RegisteredLetter(sender, receiver,
+			return new RegisteredLetter(sender, receiver, this.printer,
 					this.randomRegisteredLetter(sender, receiver));
 		case 3:
-			return new UrgentLetter(sender, receiver, this.randomUrgentLetter(
-					sender, receiver));
+			return new UrgentLetter(sender, receiver, this.printer,
+					this.randomUrgentLetter(sender, receiver));
 		default:
-			return new SimpleLetter(sender, receiver, "bla bla");
+			return new SimpleLetter(sender, receiver, this.printer, "bla bla");
 		}
 	}
 
+	// Returns a Registered Letter that not contains another Registered Letter
 	private Letter<?> randomRegisteredLetter(Inhabitant sender,
 			Inhabitant receiver) {
 		switch (this.random.nextInt(3)) {
 		case 1:
 			int amount = this.random.nextInt(this.maxAmount) + 1;
-			return new PromissoryNote(sender, receiver, amount);
+			return new PromissoryNote(sender, receiver, this.printer, amount);
 		case 2:
-			return new UrgentLetter(sender, receiver,
+			return new UrgentLetter(sender, receiver, this.printer,
 					this.randomUrgentAndRegisteredLetter(sender, receiver));
 		default:
-			return new SimpleLetter(sender, receiver, "bla bla");
+			return new SimpleLetter(sender, receiver, this.printer, "bla bla");
 		}
 	}
 
+	// Returns an Urgent Letter that not contains another Urgent Letter
 	private Letter<?> randomUrgentLetter(Inhabitant sender, Inhabitant receiver) {
 		switch (this.random.nextInt(3)) {
 		case 1:
 			int amount = this.random.nextInt(this.maxAmount) + 1;
-			return new PromissoryNote(sender, receiver, amount);
+			return new PromissoryNote(sender, receiver, this.printer, amount);
 		case 2:
-			return new RegisteredLetter(sender, receiver,
+			return new RegisteredLetter(sender, receiver, this.printer,
 					this.randomUrgentAndRegisteredLetter(sender, receiver));
 		default:
-			return new SimpleLetter(sender, receiver, "bla bla");
+			return new SimpleLetter(sender, receiver, this.printer, "bla bla");
 		}
 	}
 
+	// Returns an Urgent and Registered Letter that not contains another Urgent
+	// or Registered Letter
 	private Letter<?> randomUrgentAndRegisteredLetter(Inhabitant sender,
 			Inhabitant receiver) {
 		switch (this.random.nextInt(2)) {
 		case 1:
 			int amount = this.random.nextInt(this.maxAmount) + 1;
-			return new PromissoryNote(sender, receiver, amount);
+			return new PromissoryNote(sender, receiver, this.printer, amount);
 		default:
-			return new SimpleLetter(sender, receiver, "bla bla");
+			return new SimpleLetter(sender, receiver, this.printer, "bla bla");
 		}
 	}
 }

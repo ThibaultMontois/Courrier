@@ -16,7 +16,8 @@ public class ThanksLetterTest extends SimpleLetterTest {
 
 	@Override
 	protected void reallyCreateLetter() {
-		this.letter = new ThanksLetter(this.sender, this.receiver, this.text);
+		this.letter = new ThanksLetter(this.sender, this.receiver,
+				this.printer, this.text);
 	}
 
 	@Test

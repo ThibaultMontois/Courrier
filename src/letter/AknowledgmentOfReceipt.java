@@ -1,6 +1,7 @@
 package letter;
 
 import city.Inhabitant;
+import printer.Printer;
 
 /**
  * Defines an AknowledgmentOfReceipt.
@@ -11,8 +12,7 @@ import city.Inhabitant;
 public class AknowledgmentOfReceipt extends SimpleLetter {
 
 	/**
-	 * Constructs a AknowledgmentOfReceipt with given sender, receiver and
-	 * text.
+	 * Constructs a AknowledgmentOfReceipt with given sender, receiver and text.
 	 * 
 	 * @param sender
 	 *            the AknowledgmentOfReceipt's sender
@@ -21,8 +21,9 @@ public class AknowledgmentOfReceipt extends SimpleLetter {
 	 * @param text
 	 *            the AknowledgmentOfReceipt's text
 	 */
-	public AknowledgmentOfReceipt(Inhabitant sender, Inhabitant receiver, String text) {
-		super(sender, receiver, "aknowledgment of receipt for " + text);
+	public AknowledgmentOfReceipt(Inhabitant sender, Inhabitant receiver,
+			Printer printer, String text) {
+		super(sender, receiver, printer, "aknowledgment of receipt for " + text);
 	}
 
 	public String toString() {

@@ -19,7 +19,8 @@ public class SimpleLetterTest extends LetterTest<TextContent> {
 
 	@Override
 	protected void reallyCreateLetter() {
-		this.letter = new SimpleLetter(this.sender, this.receiver, this.text);
+		this.letter = new SimpleLetter(this.sender, this.receiver,
+				this.printer, this.text);
 	}
 
 	@Override

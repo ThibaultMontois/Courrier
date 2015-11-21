@@ -1,7 +1,8 @@
 package city;
 
-import letter.Letter;
 import main.Mail;
+import letter.Letter;
+import printer.Printer;
 
 /**
  * Defines an Inhabitant.
@@ -14,6 +15,7 @@ public class Inhabitant {
 	protected String name;
 	protected City city;
 	protected int bankAccount;
+	protected Printer printer;
 
 	/**
 	 * Constructs an Inhabitant with given rank and City.
@@ -23,10 +25,11 @@ public class Inhabitant {
 	 * @param city
 	 *            the Inhabitant's City
 	 */
-	public Inhabitant(int rank, City city) {
+	public Inhabitant(int rank, City city, Printer printer) {
 		this.name = "inhabitant-" + rank;
 		this.city = city;
 		this.bankAccount = Mail.BANKACCOUNT;
+		this.printer = printer;
 	}
 
 	public String getName() {
@@ -47,14 +50,9 @@ public class Inhabitant {
 	 * @param amount
 	 *            the amount to add
 	 */
-	public String credit(int amount) {
-		String str = "   + " + this.name + " account is credited with "
-				+ amount;
-		str += amount < 2 ? " euro" : " euros";
+	public void credit(int amount) {
 		this.bankAccount += amount;
-		str += "; its balance is now " + this.bankAccount;
-		str += this.bankAccount < 2 ? " euro\n" : " euros\n";
-		return str;
+		this.printer.printCredit(this.name, amount, this.bankAccount);
 	}
 
 	/**
@@ -63,17 +61,12 @@ public class Inhabitant {
 	 * @param amount
 	 *            the amount to remove
 	 */
-	public String debit(int amount) {
-		String str = "   - " + amount;
-		str += amount < 2 ? " euro" : " euros";
+	public void debit(int amount) {
 		this.bankAccount -= amount;
-		str += " are debited from " + this.name
-				+ " account whose balance is now " + this.bankAccount;
-		str += this.bankAccount < 2 ? " euro\n" : " euros\n";
-		return str;
+		this.printer.printDebit(this.name, amount, this.bankAccount);
 	}
 
-	public String receiveLetter(Letter<?> letter) {
-		return letter.doAction();
+	public void receiveLetter(Letter<?> letter) {
+		letter.doAction();
 	}
 }

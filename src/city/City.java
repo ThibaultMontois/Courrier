@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import letter.Letter;
+import printer.Printer;
 
 /**
  * Defines a City.
@@ -17,6 +18,7 @@ public class City {
 	protected String name;
 	protected List<Inhabitant> inhabitants;
 	protected List<Letter<?>> postbox;
+	protected Printer printer;
 
 	/**
 	 * Constructs a City with given name.
@@ -24,10 +26,11 @@ public class City {
 	 * @param name
 	 *            the City's name
 	 */
-	public City(String name) {
+	public City(String name, Printer printer) {
 		this.name = name;
 		this.inhabitants = new ArrayList<Inhabitant>();
 		this.postbox = new LinkedList<Letter<?>>();
+		this.printer = printer;
 	}
 
 	/**
@@ -39,10 +42,10 @@ public class City {
 	 * @param numberOfInhabitants
 	 *            the number of Inhabitants
 	 */
-	public City(String name, int numberOfInhabitants) {
-		this(name);
+	public City(String name, Printer printer, int numberOfInhabitants) {
+		this(name, printer);
 		for (int i = 0; i < numberOfInhabitants; i++) {
-			this.inhabitants.add(new Inhabitant(i + 1, this));
+			this.inhabitants.add(new Inhabitant(i + 1, this, printer));
 		}
 	}
 
@@ -64,25 +67,19 @@ public class City {
 	 * @param letter
 	 *            the Letter to add
 	 */
-	public String sendLetter(Letter<?> letter) {
-		String str = "-> " + letter.getSender().getName() + " mails "
-				+ letter.toString() + " to " + letter.getReceiver().getName()
-				+ " for a cost of " + letter.getCost();
-		str += letter.getCost() < 2 ? " euro\n" : " euros\n";
-		str += letter.getSender().debit(letter.getCost());
+	public void sendLetter(Letter<?> letter) {
 		this.postbox.add(letter);
-		return str;
+		this.printer.printSendLetter(letter);
+		letter.getSender().debit(letter.getCost());
 	}
 
 	/**
 	 * Distributes all the postbox's Letter.
 	 */
-	public String distributeLetters() {
-		String str = "";
+	public void distributeLetters() {
 		List<Letter<?>> bag = new LinkedList<Letter<?>>(this.postbox);
 		this.postbox.clear();
 		for (Letter<?> letter : bag)
-			str += letter.getReceiver().receiveLetter(letter);
-		return str;
+			letter.getReceiver().receiveLetter(letter);
 	}
 }

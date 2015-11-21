@@ -6,6 +6,8 @@ import static org.junit.Assert.assertSame;
 import org.junit.Before;
 import org.junit.Test;
 
+import printer.Printer;
+
 import main.Mail;
 import city.City;
 import city.Inhabitant;
@@ -13,6 +15,7 @@ import content.Content;
 import letter.Letter;
 
 import test.content.ContentTest;
+import test.mock.MockPrinter;
 
 /**
  * Defines tests for Letter classes.
@@ -22,6 +25,7 @@ import test.content.ContentTest;
  */
 public abstract class LetterTest<C extends Content> implements ContentTest {
 
+	protected Printer printer;
 	protected City city;
 	protected Inhabitant sender;
 	protected Inhabitant receiver;
@@ -29,10 +33,12 @@ public abstract class LetterTest<C extends Content> implements ContentTest {
 
 	@Before
 	public void createLetter() {
-		this.city = new City("CityTest");
-		this.sender = new Inhabitant(1, this.city);
-		this.receiver = new Inhabitant(2, this.city);
+		this.printer = new MockPrinter();
+		this.city = new City("CityTest", this.printer);
+		this.sender = new Inhabitant(1, this.city, this.printer);
+		this.receiver = new Inhabitant(2, this.city, this.printer);
 		this.reallyCreateLetter();
+		assertNotNull(this.printer);
 		assertNotNull(this.city);
 		assertNotNull(this.sender);
 		assertNotNull(this.receiver);

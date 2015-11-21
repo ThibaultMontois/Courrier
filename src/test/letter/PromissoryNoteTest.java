@@ -23,12 +23,12 @@ public class PromissoryNoteTest extends LetterTest<MoneyContent> {
 	protected void reallyCreateLetter() {
 		this.amount = 100;
 		this.letter = new PromissoryNote(this.sender, this.receiver,
-				this.amount);
+				this.printer, this.amount);
 	}
 
 	@Test
 	public void testGetCost() {
-		assertSame(Mail.COST + this.amount * Mail.FACTOR / 100,
+		assertSame(Mail.COST + this.amount * Mail.PNFACTOR / 100,
 				this.letter.getCost());
 	}
 

@@ -10,6 +10,9 @@ import org.junit.Test;
 import main.Mail;
 import city.City;
 import city.Inhabitant;
+import printer.Printer;
+
+import test.mock.MockPrinter;
 
 /**
  * Defines tests for Inhabitant class.
@@ -19,13 +22,16 @@ import city.Inhabitant;
  */
 public class InhabitantTest {
 
+	protected Printer printer;
 	protected City city;
 	protected Inhabitant inhabitant;
 
 	@Before
 	public void createInhabitant() {
-		this.city = new City("CityTest");
-		this.inhabitant = new Inhabitant(1, this.city);
+		this.printer = new MockPrinter();
+		this.city = new City("CityTest", this.printer);
+		this.inhabitant = new Inhabitant(1, this.city, this.printer);
+		assertNotNull(this.printer);
 		assertNotNull(this.city);
 		assertNotNull(this.inhabitant);
 	}

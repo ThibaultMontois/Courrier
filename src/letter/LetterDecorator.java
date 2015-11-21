@@ -1,6 +1,7 @@
 package letter;
 
 import city.Inhabitant;
+import printer.Printer;
 
 /**
  * Defines an OptionLetter.
@@ -20,8 +21,9 @@ public abstract class LetterDecorator extends Letter<Letter<?>> {
 	 * @param letter
 	 *            the OptionLetter's content
 	 */
-	public LetterDecorator(Inhabitant sender, Inhabitant receiver, Letter<?> letter) {
-		super(sender, receiver);
+	public LetterDecorator(Inhabitant sender, Inhabitant receiver,
+			Printer printer, Letter<?> letter) {
+		super(sender, receiver, printer);
 		this.content = letter;
 	}
 }

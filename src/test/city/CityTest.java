@@ -12,6 +12,9 @@ import city.City;
 import city.Inhabitant;
 import letter.Letter;
 import letter.SimpleLetter;
+import printer.Printer;
+
+import test.mock.MockPrinter;
 
 /**
  * Defines tests for City class.
@@ -22,12 +25,15 @@ import letter.SimpleLetter;
 public class CityTest {
 
 	protected int numberOfInhabitants;
+	protected Printer printer;
 	protected City city;
 
 	@Before
 	public void createCity() {
 		this.numberOfInhabitants = 10;
-		this.city = new City("CityTest", this.numberOfInhabitants);
+		this.printer = new MockPrinter();
+		this.city = new City("CityTest", this.printer, this.numberOfInhabitants);
+		assertNotNull(this.printer);
 		assertNotNull(this.city);
 	}
 
@@ -52,7 +58,7 @@ public class CityTest {
 	public void testSendLetter() {
 		Inhabitant ih1 = this.city.getInhabitants().get(4);
 		Inhabitant ih2 = this.city.getInhabitants().get(2);
-		Letter<?> letter = new SimpleLetter(ih1, ih2, "bla bla");
+		Letter<?> letter = new SimpleLetter(ih1, ih2, this.printer, "bla bla");
 		this.city.sendLetter(letter);
 		assertSame(1, this.city.getPostbox().size());
 		assertEquals(letter, this.city.getPostbox().get(0));
@@ -62,7 +68,7 @@ public class CityTest {
 	public void testDistributeLetters() {
 		Inhabitant ih1 = this.city.getInhabitants().get(4);
 		Inhabitant ih2 = this.city.getInhabitants().get(2);
-		Letter<?> letter = new SimpleLetter(ih1, ih2, "bla bla");
+		Letter<?> letter = new SimpleLetter(ih1, ih2, this.printer, "bla bla");
 		this.city.sendLetter(letter);
 		this.city.distributeLetters();
 		assertSame(0, this.city.getPostbox().size());

@@ -20,7 +20,7 @@ public class RegisteredLetterTest extends LetterDecoratorTest {
 	protected void reallyCreateLetter() {
 		super.reallyCreateLetter();
 		this.letter = new RegisteredLetter(this.sender, this.receiver,
-				this.content);
+				this.printer, this.content);
 	}
 
 	@Test

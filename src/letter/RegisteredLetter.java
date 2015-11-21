@@ -2,6 +2,7 @@ package letter;
 
 import main.Mail;
 import city.Inhabitant;
+import printer.Printer;
 
 /**
  * Defines a RegisteredLetter.
@@ -22,8 +23,8 @@ public class RegisteredLetter extends LetterDecorator {
 	 *            the RegisteredLetter's content
 	 */
 	public RegisteredLetter(Inhabitant sender, Inhabitant receiver,
-			Letter<?> letter) {
-		super(sender, receiver, letter);
+			Printer printer, Letter<?> letter) {
+		super(sender, receiver, printer, letter);
 		this.cost += Mail.ADDCOST;
 	}
 
@@ -31,12 +32,11 @@ public class RegisteredLetter extends LetterDecorator {
 	 * Called by <code>doAction</code> method.
 	 */
 	@Override
-	protected String reallyDoAction() {
-		String str = this.content.reallyDoAction();
-		str += this.receiver.getCity().sendLetter(
-				new AknowledgmentOfReceipt(this.receiver, this.sender, this
-						.toString()));
-		return str;
+	protected void reallyDoAction() {
+		this.content.reallyDoAction();
+		this.receiver.getCity().sendLetter(
+				new AknowledgmentOfReceipt(this.receiver, this.sender,
+						this.printer, this.toString()));
 	}
 
 	public String toString() {

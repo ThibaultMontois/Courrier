@@ -19,7 +19,8 @@ public class UrgentLetterTest extends LetterDecoratorTest {
 	@Override
 	protected void reallyCreateLetter() {
 		super.reallyCreateLetter();
-		this.letter = new UrgentLetter(this.sender, this.receiver, this.content);
+		this.letter = new UrgentLetter(this.sender, this.receiver,
+				this.printer, this.content);
 	}
 
 	@Test

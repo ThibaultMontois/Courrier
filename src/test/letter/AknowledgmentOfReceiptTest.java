@@ -17,7 +17,7 @@ public class AknowledgmentOfReceiptTest extends SimpleLetterTest {
 	@Override
 	protected void reallyCreateLetter() {
 		this.letter = new AknowledgmentOfReceipt(this.sender, this.receiver,
-				this.text);
+				this.printer, this.text);
 	}
 
 	@Test

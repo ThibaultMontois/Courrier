@@ -2,6 +2,7 @@ package letter;
 
 import main.Mail;
 import city.Inhabitant;
+import printer.Printer;
 
 /**
  * Defines an UrgentLetter.
@@ -21,8 +22,9 @@ public class UrgentLetter extends LetterDecorator {
 	 * @param letter
 	 *            the UrgentLetter's content
 	 */
-	public UrgentLetter(Inhabitant sender, Inhabitant receiver, Letter<?> letter) {
-		super(sender, receiver, letter);
+	public UrgentLetter(Inhabitant sender, Inhabitant receiver,
+			Printer printer, Letter<?> letter) {
+		super(sender, receiver, printer, letter);
 		this.cost *= Mail.MULTCOST;
 	}
 
@@ -30,8 +32,8 @@ public class UrgentLetter extends LetterDecorator {
 	 * Called by <code>doAction</code> method.
 	 */
 	@Override
-	protected String reallyDoAction() {
-		return this.content.reallyDoAction();
+	protected void reallyDoAction() {
+		this.content.reallyDoAction();
 	}
 
 	public String toString() {
